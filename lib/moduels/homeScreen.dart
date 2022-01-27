@@ -13,16 +13,27 @@ class HomeScreen extends StatelessWidget {
     } else {
       height = 1.12;
     }
+
     return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: GridView.count(
-        crossAxisSpacing: 8,
-        mainAxisSpacing: 8,
-        crossAxisCount: 2,
-        childAspectRatio: 1 / height,
-        children: List.generate(
-          11,
-          (index) => productBuilder(context),
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+         const    SizedBox(height: 15,),
+            GridView.count(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              crossAxisSpacing: 8,
+              mainAxisSpacing: 8,
+              crossAxisCount: 2,
+              childAspectRatio: 1 / height,
+              children: List.generate(
+                11,
+                (index) => productBuilder(context,index),
+              ),
+            ),
+            const    SizedBox(height: 15,),
+          ],
         ),
       ),
     );

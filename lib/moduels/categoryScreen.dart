@@ -22,15 +22,25 @@ class CategoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: GridView.count(
-        crossAxisCount: 2,
-        mainAxisSpacing: 8,
-        crossAxisSpacing: 8,
-        childAspectRatio: 1 / 1.00005,
-        children: List.generate(images.length,
-            (index) => categoryBuilder(context, images[index], lable[index])),
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+         const  SizedBox(height: 15,),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            child: GridView.count(
+              shrinkWrap: true,
+              physics:const  NeverScrollableScrollPhysics(),
+              crossAxisCount: 1,
+              mainAxisSpacing: 8,
+              crossAxisSpacing: 8,
+              childAspectRatio: 1 /0.45,
+              children: List.generate(images.length,
+                  (index) => categoryBuilder(context, images[index], lable[index]),),
+            ),
+          ),
+          const  SizedBox(height: 15,),
+        ],
       ),
     );
   }
