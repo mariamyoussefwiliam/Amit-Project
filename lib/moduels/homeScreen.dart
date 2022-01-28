@@ -1,4 +1,6 @@
+import 'package:amit_project/models/product%20model.dart';
 import 'package:amit_project/shared/component/component.dart';
+import 'package:amit_project/shared/cubit/cubit.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -6,12 +8,15 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // var cubit=HomeCubit.get(context).productModel!.products[0].id;
+    // print(cubit);
+    Product? productModel =HomeCubit.get(context).productModel;
     var size = MediaQuery.of(context).size.width;
     var height = 0.0;
     if (size < 600) {
-      height = 1.6;
+      height = 1.7;
     } else {
-      height = 1.12;
+      height = 1.25;
     }
 
     return Padding(
@@ -28,8 +33,8 @@ class HomeScreen extends StatelessWidget {
               crossAxisCount: 2,
               childAspectRatio: 1 / height,
               children: List.generate(
-                11,
-                (index) => productBuilder(context,index),
+                productModel!.products.length,
+                (index) => productBuilder(context,index,productModel.products[index]),
               ),
             ),
             const    SizedBox(height: 15,),

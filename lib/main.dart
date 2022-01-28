@@ -1,12 +1,14 @@
 import 'package:amit_project/shared/component/constant.dart';
 import 'package:amit_project/shared/cubit/cubit.dart';
 import 'package:amit_project/shared/cubit/states.dart';
+import 'package:amit_project/shared/network/remote/dio-helper.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'layout/homeLayout.dart';
 
 void main() {
+  DioHelper.init();
   runApp(const MyApp());
 }
 
@@ -17,12 +19,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeCubit(),
+      create: (context) => HomeCubit()..getProductData()..getCategoriesData(),
       child: BlocConsumer<HomeCubit,HomeStates>(
         listener: (context,state){},
         builder:(context,state)=> MaterialApp(
           debugShowCheckedModeBanner: false,
+
           theme: ThemeData(
+            primaryColor: defaultColor,
+            primarySwatch: Colors.red,
             textTheme: const TextTheme(
                 bodyText1: TextStyle(
               fontSize: 18,
