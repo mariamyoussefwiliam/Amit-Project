@@ -29,7 +29,7 @@ class CartScreen extends StatelessWidget {
             index++;
           }
         return ConditionalBuilder(
-            condition: false,
+            condition: Token==null||Token=="",
             builder: (context) {
               return cubit.login == 0 ? LoginScreen() : RegisterScreen();
             },
