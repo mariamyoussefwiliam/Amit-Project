@@ -2,6 +2,7 @@ import 'package:amit_project/shared/component/component.dart';
 import 'package:amit_project/shared/component/constant.dart';
 import 'package:amit_project/shared/cubit/cubit.dart';
 import 'package:amit_project/shared/cubit/states.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -21,6 +22,25 @@ class HomeLayout extends StatelessWidget {
           {
             showMessage(msg: "Item Deleted Successfully",color: Colors.green);
           }
+          if(state is LoginPleaseState)
+            {
+              AwesomeDialog(
+                  context: context,
+                  dialogType: DialogType.INFO,
+                  width: 340,
+                  buttonsBorderRadius:const  BorderRadius.all(
+                      Radius.circular(2)),
+                  headerAnimationLoop: false,
+                  animType: AnimType.BOTTOMSLIDE,
+                  title: 'info',
+                  desc:
+                  'Before add to cart Login Or Register please...?',
+                  btnCancelOnPress: () {},
+                  btnOkOnPress: () {
+                    HomeCubit.get(context).changeIndex(2);
+                  }).show();
+             // showMessage(msg: "Item Deleted Successfully",color: Colors.green);
+            }
         },
         builder: (context, state) {
           var cubit = HomeCubit.get(context);

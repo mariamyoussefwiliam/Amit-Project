@@ -69,3 +69,7 @@ class GetCategoryProductsDataErrorState extends HomeStates {
 
 class AddCartItemState extends HomeStates {}
 class RemoveCartItemState extends HomeStates {}
+
+class LoginPleaseState extends HomeStates {}
+class removedataState extends HomeStates {}
+class refreshState extends HomeStates {}

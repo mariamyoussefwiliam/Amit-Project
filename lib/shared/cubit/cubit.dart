@@ -41,6 +41,7 @@ class HomeCubit extends Cubit<HomeStates> {
   Product? productModel;
 
   void getProductData( {String? token}) {
+
     emit(GetProductDataLoadingState());
     DioHelper.getData(url: products).then((value) {
       productModel = Product.fromJson(value.data);
@@ -115,6 +116,10 @@ List<ProductModel> cartItems=[];
     print(cartItems.length);
     emit(AddCartItemState());
   }
+  void refresh()
+  {cartItemColor=cartItemColorr;
+    emit(refreshState());
+  }
   void deleteCartItem(int index,int productId)
   {
    // cartItems.removeAt(index);
@@ -124,6 +129,19 @@ List<ProductModel> cartItems=[];
     cartItemColor=cartItemColorr;
     print(cartItems.length);
     emit(RemoveCartItemState());
+  }
+
+
+  void loginPlease()
+  {
+    emit(LoginPleaseState());
+  }
+  void removedata()
+  {
+    cartItems.clear();
+    cartItemss.clear();
+    cartItemColor.clear();
+    emit(removedataState());
   }
 }
 

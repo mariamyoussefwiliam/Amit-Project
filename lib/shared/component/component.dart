@@ -89,7 +89,7 @@ Widget productBuilder(context, index, ProductModel model) {
             context,
             MaterialPageRoute(
                 builder: (context) => ProductDetailsScreen(model.id!))).then((value) {
-                  HomeCubit.get(context).changeIndex(2);
+                  HomeCubit.get(context).refresh();
         });
       },
       child: Material(
@@ -204,7 +204,9 @@ Widget categoryBuilder(context, String image, String category, id) {
   return InkWell(
     onTap: () {
       Navigator.push(context,
-          MaterialPageRoute(builder: (context) => CategoryProductScreen(id)));
+          MaterialPageRoute(builder: (context) => CategoryProductScreen(id))).then((value) {
+        HomeCubit.get(context).refresh();
+      });
     },
     child: Container(
       clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -294,7 +296,7 @@ Widget buildCartItem(context, index,ProductModel  model) {
               context,
               MaterialPageRoute(
                   builder: (context) => ProductDetailsScreen(model.id!))).then((value) {
-            HomeCubit.get(context).changeIndex(2);
+            HomeCubit.get(context).refresh();
           });
         },
         child: Padding(
@@ -503,15 +505,23 @@ Widget addOrDelete(context,ProductModel model)
 
         onPressed: ()
         {
-              if(HomeCubit.get(context).cartItemColor[model.id]==false||HomeCubit.get(context).cartItemColor[model.id]==null)
-              {
-                HomeCubit.get(context).addCartItem(model);
+          if(Token!=null&&Token!="")
+             {
+               if(HomeCubit.get(context).cartItemColor[model.id]==false||HomeCubit.get(context).cartItemColor[model.id]==null)
+               {
+                 HomeCubit.get(context).addCartItem(model);
 
-              }
-              else
-                {
-                  HomeCubit.get(context).deleteCartItem(indexx[model.id]!,model.id!);
-                }
+               }
+               else
+               {
+                 HomeCubit.get(context).deleteCartItem(indexx[model.id]!,model.id!);
+               }
+             }
+          else
+            {
+              HomeCubit.get(context).loginPlease();
+            }
+
 
         },
         icon: Icon(Icons.shopping_cart_outlined,color:HomeCubit.get(context).cartItemColor[model.id]==true? defaultColor:Colors.grey,size: 30,),

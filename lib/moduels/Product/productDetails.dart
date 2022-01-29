@@ -1,8 +1,10 @@
+import 'package:amit_project/layout/homeLayout.dart';
 import 'package:amit_project/models/product%20model.dart';
 import 'package:amit_project/shared/component/component.dart';
 import 'package:amit_project/shared/component/constant.dart';
 import 'package:amit_project/shared/cubit/cubit.dart';
 import 'package:amit_project/shared/cubit/states.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,6 +30,23 @@ class ProductDetailsScreen extends StatelessWidget {
               if(state is AddCartItemState)
               {
                 showMessage(msg: "Item Added Successfully",color: Colors.green);
+              }
+              if(state is LoginPleaseState)
+              {
+                AwesomeDialog(
+                    context: context,
+                    dialogType: DialogType.INFO,
+                    width: 340,
+                    buttonsBorderRadius:const  BorderRadius.all(
+                        Radius.circular(2)),
+                    headerAnimationLoop: false,
+                    animType: AnimType.BOTTOMSLIDE,
+                    title: 'info',
+                    desc:
+                    'Before add to cart Login Or Register please...?',
+                    btnCancelOnPress: () {},
+                    ).show();
+                // showMessage(msg: "Item Deleted Successfully",color: Colors.green);
               }
 
 

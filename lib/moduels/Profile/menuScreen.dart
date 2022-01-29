@@ -2,6 +2,7 @@ import 'package:amit_project/moduels/login%20and%20register/cubit/cubit.dart';
 import 'package:amit_project/moduels/login%20and%20register/cubit/state.dart';
 import 'package:amit_project/shared/component/component.dart';
 import 'package:amit_project/shared/component/constant.dart';
+import 'package:amit_project/shared/cubit/cubit.dart';
 import 'package:amit_project/shared/network/local/cache_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -124,7 +125,10 @@ class MenuScreen extends StatelessWidget {
                                   Token="";
                                   name="";
                                   email="";
+
+                                  HomeCubit.get(context).removedata();
                                   LoginCubit.get(context).logOut();
+
 
                                 },
                                 child: const Text(
