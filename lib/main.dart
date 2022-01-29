@@ -26,52 +26,54 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => HomeCubit()..getProductData()..getCategoriesData(),
-      child: BlocConsumer<HomeCubit,HomeStates>(
-        listener: (context,state){},
-        builder:(context,state)=> MaterialApp(
-          debugShowCheckedModeBanner: false,
+    return MultiBlocProvider(
+      providers: [
+       BlocProvider(
+        create: (context) => HomeCubit()..getProductData()..getCategoriesData(),)],
+        child: BlocConsumer<HomeCubit,HomeStates>(
+          listener: (context,state){},
+          builder:(context,state)=> MaterialApp(
+            debugShowCheckedModeBanner: false,
 
-          theme: ThemeData(
-            primaryColor: defaultColor,
-            primarySwatch: Colors.red,
-            textTheme: const TextTheme(
-                bodyText1: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-              color: Colors.black,
-            )),
-            //  primarySwatch: Colors.red,
-            scaffoldBackgroundColor:HomeCubit.get(context).index==3?Colors.white: Colors.grey[300],
-            appBarTheme: const AppBarTheme(
-              iconTheme: IconThemeData(color: defaultColor),
-              color: Colors.white,
-              elevation: 0,
-              titleTextStyle: TextStyle(
+            theme: ThemeData(
+              primaryColor: defaultColor,
+              primarySwatch: Colors.red,
+              textTheme: const TextTheme(
+                  bodyText1: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
                 color: Colors.black,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+              )),
+              //  primarySwatch: Colors.red,
+              scaffoldBackgroundColor:HomeCubit.get(context).index==3?Colors.white: Colors.grey[300],
+              appBarTheme: const AppBarTheme(
+                iconTheme: IconThemeData(color: defaultColor),
+                color: Colors.white,
+                elevation: 0,
+                titleTextStyle: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+                backgroundColor: Colors.white,
+                selectedItemColor: defaultColor,
               ),
             ),
-            bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+            home: AnimatedSplashScreen(
+              splash: const Image(
+                image: AssetImage("assets/images/orange.jpg"),
+                width: 120,
+                height: 25,
+                fit: BoxFit.cover,
+              ),
+              nextScreen: HomeLayout(),
+              splashTransition: SplashTransition.rotationTransition,
               backgroundColor: Colors.white,
-              selectedItemColor: defaultColor,
             ),
-          ),
-          home: AnimatedSplashScreen(
-            splash: const Image(
-              image: AssetImage("assets/images/orange.jpg"),
-              width: 120,
-              height: 25,
-              fit: BoxFit.cover,
-            ),
-            nextScreen: HomeLayout(),
-            splashTransition: SplashTransition.rotationTransition,
-            backgroundColor: Colors.white,
           ),
         ),
-      ),
-    );
+      );
   }
 }

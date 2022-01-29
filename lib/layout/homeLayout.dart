@@ -19,7 +19,7 @@ class HomeLayout extends StatelessWidget {
             }
           if(state is RemoveCartItemState)
           {
-            showMessage(msg: "Item Removed Successfully",color: Colors.red);
+            showMessage(msg: "Item Deleted Successfully",color: Colors.green);
           }
         },
         builder: (context, state) {

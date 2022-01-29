@@ -1,6 +1,6 @@
 import 'package:amit_project/models/product%20model.dart';
-import 'package:amit_project/moduels/categoryProductsScreen.dart';
-import 'package:amit_project/moduels/productDetails.dart';
+import 'package:amit_project/moduels/Category/categoryProductsScreen.dart';
+import 'package:amit_project/moduels/Product/productDetails.dart';
 import 'package:amit_project/shared/cubit/cubit.dart';
 import 'package:amit_project/shared/cubit/states.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
@@ -88,7 +88,9 @@ Widget productBuilder(context, index, ProductModel model) {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => ProductDetailsScreen(model.id!)));
+                builder: (context) => ProductDetailsScreen(model.id!))).then((value) {
+                  HomeCubit.get(context).changeIndex(2);
+        });
       },
       child: Material(
         shadowColor: Colors.grey[300],
@@ -291,7 +293,9 @@ Widget buildCartItem(context, index,ProductModel  model) {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => ProductDetailsScreen(model.id!)));
+                  builder: (context) => ProductDetailsScreen(model.id!))).then((value) {
+            HomeCubit.get(context).changeIndex(2);
+          });
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12.0),
@@ -492,25 +496,7 @@ Widget addOrDelete(context,ProductModel model)
     height: 32,
 
     child:
-    // MaterialButton(
-    //   onPressed: () {
-    //     if(HomeCubit.get(context).cartItem[model.id]==false||HomeCubit.get(context).cartItem[model.id]==null)
-    //     {
-    //       HomeCubit.get(context).addCartItem(model);
-    //
-    //     }
-    //
-    //   },
-    //   child: const Text(
-    //     "+",
-    //     style: TextStyle(
-    //       color: Colors.white,
-    //       fontSize: 20,
-    //     ),
-    //     textAlign: TextAlign.center,
-    //   ),
-    //   color: defaultColor,
-    // ),
+
     BlocConsumer<HomeCubit,HomeStates>(
       listener: (context,state){},
       builder:(context,state)=> IconButton(

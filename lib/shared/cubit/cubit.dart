@@ -1,10 +1,10 @@
 import 'package:amit_project/models/category%20model.dart';
 import 'package:amit_project/models/categoryProducts.dart';
 import 'package:amit_project/models/product%20model.dart';
-import 'package:amit_project/moduels/cartScreen.dart';
-import 'package:amit_project/moduels/categoryScreen.dart';
+import 'package:amit_project/moduels/Cart/cartScreen.dart';
+import 'package:amit_project/moduels/Category/categoryScreen.dart';
 import 'package:amit_project/moduels/homeScreen.dart';
-import 'package:amit_project/moduels/menuScreen.dart';
+import 'package:amit_project/moduels/Profile/menuScreen.dart';
 import 'package:amit_project/shared/component/constant.dart';
 import 'package:amit_project/shared/cubit/states.dart';
 import 'package:amit_project/shared/network/end_points.dart';
