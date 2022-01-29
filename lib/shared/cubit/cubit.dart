@@ -5,6 +5,7 @@ import 'package:amit_project/moduels/cartScreen.dart';
 import 'package:amit_project/moduels/categoryScreen.dart';
 import 'package:amit_project/moduels/homeScreen.dart';
 import 'package:amit_project/moduels/menuScreen.dart';
+import 'package:amit_project/shared/component/constant.dart';
 import 'package:amit_project/shared/cubit/states.dart';
 import 'package:amit_project/shared/network/end_points.dart';
 import 'package:amit_project/shared/network/remote/dio-helper.dart';
@@ -103,18 +104,24 @@ class HomeCubit extends Cubit<HomeStates> {
   }
 
 List<ProductModel> cartItems=[];
-  Map<int,bool> cartItem={};
+  Map<int,bool> cartItemColor={};
   void addCartItem(ProductModel product)
   {
-    cartItems.add(product);
-    cartItem.addAll({product.id!:true});
+    //cartItems.add(product);
+    cartItemss.add(product);
+   cartItems=cartItemss;
+    cartItemColorr.addAll({product.id!:true});
+    cartItemColor=cartItemColorr;
     print(cartItems.length);
     emit(AddCartItemState());
   }
   void deleteCartItem(int index,int productId)
   {
-    cartItems.removeAt(index);
-    cartItem.addAll({productId:false});
+   // cartItems.removeAt(index);
+    cartItemss.removeAt(index);
+    cartItems=cartItemss;
+    cartItemColorr.addAll({productId:false});
+    cartItemColor=cartItemColorr;
     print(cartItems.length);
     emit(RemoveCartItemState());
   }

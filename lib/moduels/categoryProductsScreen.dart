@@ -33,6 +33,10 @@ class CategoryProductScreen extends StatelessWidget {
                 .get(context)
                 .categoryProductsModel;
           }
+          if(state is AddCartItemState)
+          {
+            showMessage(msg: "Item Added Successfully",color: Colors.green);
+          }
         },
         builder:(context,state)=> Scaffold(
           appBar: AppBar(

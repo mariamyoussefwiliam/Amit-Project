@@ -2,25 +2,27 @@ import 'package:amit_project/models/product%20model.dart';
 import 'package:amit_project/moduels/categoryProductsScreen.dart';
 import 'package:amit_project/moduels/productDetails.dart';
 import 'package:amit_project/shared/cubit/cubit.dart';
+import 'package:amit_project/shared/cubit/states.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'constant.dart';
 
 Widget customTextFormField(
     {required String lable,
-    bool obsecure = false,
-    required IconData prefix,
-    IconData? suffixIcon,
-    bool suffix = false,
-    Function? fun,
-    required String error,
-    required TextEditingController controller,
-    TextInputType type = TextInputType.text,
-    bool? enable,
-    onpressed}) {
+      bool obsecure = false,
+      required IconData prefix,
+      IconData? suffixIcon,
+      bool suffix = false,
+      Function? fun,
+      required String error,
+      required TextEditingController controller,
+      TextInputType type = TextInputType.text,
+      bool? enable,
+      onpressed}) {
   return TextFormField(
     validator: (s) {
       if (s!.trim().isEmpty) {
@@ -58,14 +60,14 @@ Widget customTextFormField(
       ),
       suffixIcon: suffix
           ? IconButton(
-              icon: Icon(
-                suffixIcon,
-                color: Colors.black,
-              ),
-              onPressed: () {
-                fun!();
-              },
-            )
+        icon: Icon(
+          suffixIcon,
+          color: Colors.black,
+        ),
+        onPressed: () {
+          fun!();
+        },
+      )
           : null,
       labelText: lable,
       enabled: enable == null ? true : enable,
@@ -105,7 +107,7 @@ Widget productBuilder(context, index, ProductModel model) {
               children: [
                 Image(
                   image: NetworkImage(
-                      //   "https://image.made-in-china.com/2f0j00gpLRHTArqFkt/Custom-T-Shirts-100-Cotton-Men-Tshirt-Tee-Shirt-Printing-T-Shirt-Polo-T-Shirt-for-Men-Women-Plain-T-Shirt.jpg",
+                    //   "https://image.made-in-china.com/2f0j00gpLRHTArqFkt/Custom-T-Shirts-100-Cotton-Men-Tshirt-Tee-Shirt-Printing-T-Shirt-Polo-T-Shirt-for-Men-Women-Plain-T-Shirt.jpg",
                       model.image!),
                   width: double.infinity,
                   height: MediaQuery.of(context).size.width / 2.5,
@@ -120,10 +122,10 @@ Widget productBuilder(context, index, ProductModel model) {
                       color: Colors.grey,
                       child:const Center(
                           child: Text(
-                        "Discount",
-                        style: TextStyle(color: Colors.white),
-                        textAlign: TextAlign.center,
-                      )),
+                            "Discount",
+                            style: TextStyle(color: Colors.white),
+                            textAlign: TextAlign.center,
+                          )),
                     ),
                   ),
               ],
@@ -155,7 +157,7 @@ Widget productBuilder(context, index, ProductModel model) {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      addOrDelete(context, model,index),
+                      addOrDelete(context, model),
                       const Spacer(),
                       Row(
                         children: [
@@ -213,7 +215,7 @@ Widget categoryBuilder(context, String image, String category, id) {
           Container(
             decoration: BoxDecoration(
               image:
-                  DecorationImage(image: NetworkImage(image), fit: BoxFit.fill),
+              DecorationImage(image: NetworkImage(image), fit: BoxFit.fill),
             ),
           ),
           Container(
@@ -240,7 +242,7 @@ Widget categoryBuilder(context, String image, String category, id) {
 }
 
 Widget emptyPage(
-        {required context, required String image, required String text}) =>
+    {required context, required String image, required String text}) =>
     Container(
       height: double.infinity,
       width: double.infinity,
@@ -280,7 +282,7 @@ Widget emptyPage(
       ),
     );
 
-Widget buildCartItem(context, index, ProductModel model) {
+Widget buildCartItem(context, index,ProductModel  model) {
   return SafeArea(
     child: Dismissible(
       key: UniqueKey(),
@@ -315,7 +317,7 @@ Widget buildCartItem(context, index, ProductModel model) {
                         ),
                         child: Image(
                           image: NetworkImage(
-                              // "https://image.made-in-china.com/2f0j00gpLRHTArqFkt/Custom-T-Shirts-100-Cotton-Men-Tshirt-Tee-Shirt-Printing-T-Shirt-Polo-T-Shirt-for-Men-Women-Plain-T-Shirt.jpg",
+                            // "https://image.made-in-china.com/2f0j00gpLRHTArqFkt/Custom-T-Shirts-100-Cotton-Men-Tshirt-Tee-Shirt-Printing-T-Shirt-Polo-T-Shirt-for-Men-Women-Plain-T-Shirt.jpg",
                               model.image!),
                           width: 120,
                           height: 120,
@@ -331,7 +333,7 @@ Widget buildCartItem(context, index, ProductModel model) {
                             child: Text(
                               "DISCOUNT",
                               style:
-                                  TextStyle(color: Colors.white, fontSize: 10),
+                              TextStyle(color: Colors.white, fontSize: 10),
                             ),
                           ),
                         ),
@@ -441,7 +443,7 @@ Widget buildCartItem(context, index, ProductModel model) {
                                         animType: AnimType.BOTTOMSLIDE,
                                         title: 'Question',
                                         desc:
-                                            'Are you Sure Delete This Item ...?',
+                                        'Are you Sure Delete This Item ...?',
                                         btnCancelOnPress: () {},
                                         btnOkOnPress: () {
                                           HomeCubit.get(context)
@@ -482,7 +484,7 @@ Widget buildCartItem(context, index, ProductModel model) {
 }
 
 
-Widget addOrDelete(context,ProductModel model,int index)
+Widget addOrDelete(context,ProductModel model)
 
 {
   return   SizedBox(
@@ -490,39 +492,55 @@ Widget addOrDelete(context,ProductModel model,int index)
     height: 32,
 
     child:
-    MaterialButton(
-      onPressed: () {
-                if(HomeCubit.get(context).cartItem[model.id]==false||HomeCubit.get(context).cartItem[model.id]==null)
-                  {
-                    HomeCubit.get(context).addCartItem(model);
-
-                  }
-
-      },
-      child: const Text(
-        "+",
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 20,
-        ),
-        textAlign: TextAlign.center,
-      ),
-      color: defaultColor,
-    ),
-    // IconButton(
+    // MaterialButton(
+    //   onPressed: () {
+    //     if(HomeCubit.get(context).cartItem[model.id]==false||HomeCubit.get(context).cartItem[model.id]==null)
+    //     {
+    //       HomeCubit.get(context).addCartItem(model);
     //
-    //   onPressed: ()
-    //   {
-    //         if(HomeCubit.get(context).cartItem[model.id]==false||HomeCubit.get(context).cartItem[model.id]==null)
-    //           {
-    //             HomeCubit.get(context).addCartItem(model);
-    //           }
-    //         else{
-    //           HomeCubit.get(context).deleteCartItem(index,model.id!);
-    //         }
+    //     }
+    //
     //   },
-    //   icon: Icon(Icons.shopping_cart_outlined,color:HomeCubit.get(context).cartItem[model.id]==false||HomeCubit.get(context).cartItem[model.id]==null? Colors.grey:defaultColor,size: 30,),
+    //   child: const Text(
+    //     "+",
+    //     style: TextStyle(
+    //       color: Colors.white,
+    //       fontSize: 20,
+    //     ),
+    //     textAlign: TextAlign.center,
+    //   ),
+    //   color: defaultColor,
     // ),
+    BlocConsumer<HomeCubit,HomeStates>(
+      listener: (context,state){},
+      builder:(context,state)=> IconButton(
+
+        onPressed: ()
+        {
+              if(HomeCubit.get(context).cartItemColor[model.id]==false||HomeCubit.get(context).cartItemColor[model.id]==null)
+              {
+                HomeCubit.get(context).addCartItem(model);
+
+              }
+              else
+                {
+                  HomeCubit.get(context).deleteCartItem(indexx[model.id]!,model.id!);
+                }
+
+        },
+        icon: Icon(Icons.shopping_cart_outlined,color:HomeCubit.get(context).cartItemColor[model.id]==true? defaultColor:Colors.grey,size: 30,),
+      ),
+    ),
   );
 }
 
+void showMessage({@required msg, Color color = Colors.red}) {
+  Fluttertoast.showToast(
+      msg: msg,
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: color,
+      textColor: Colors.white,
+      fontSize: 16.0);
+}

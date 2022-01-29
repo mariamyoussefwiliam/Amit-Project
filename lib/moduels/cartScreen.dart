@@ -2,6 +2,7 @@ import 'package:amit_project/models/product%20model.dart';
 import 'package:amit_project/moduels/login%20and%20register/loginScreen.dart';
 import 'package:amit_project/moduels/login%20and%20register/registerScreen.dart';
 import 'package:amit_project/shared/component/component.dart';
+import 'package:amit_project/shared/component/constant.dart';
 import 'package:amit_project/shared/cubit/cubit.dart';
 import 'package:amit_project/shared/cubit/states.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
@@ -18,7 +19,15 @@ class CartScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         var cubit = HomeCubit.get(context);
-     List<ProductModel>  list =HomeCubit.get(context).cartItems;
+     List<ProductModel>  list =cartItemss;
+     int index=0;
+        for(ProductModel model in cartItemss )
+          {
+            indexx.addAll({
+              model.id!:index
+            });
+            index++;
+          }
         return ConditionalBuilder(
             condition: false,
             builder: (context) {

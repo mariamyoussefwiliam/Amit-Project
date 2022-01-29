@@ -1,4 +1,5 @@
 import 'package:amit_project/models/product%20model.dart';
+import 'package:amit_project/shared/component/component.dart';
 import 'package:amit_project/shared/component/constant.dart';
 import 'package:amit_project/shared/cubit/cubit.dart';
 import 'package:amit_project/shared/cubit/states.dart';
@@ -23,6 +24,10 @@ class ProductDetailsScreen extends StatelessWidget {
                 cubit = HomeCubit
                     .get(context)
                     .productDetailsModel;
+              }
+              if(state is AddCartItemState)
+              {
+                showMessage(msg: "Item Added Successfully",color: Colors.green);
               }
 
 
@@ -224,22 +229,9 @@ class ProductDetailsScreen extends StatelessWidget {
                 const  Spacer(),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: SizedBox(
-                    width: 31,
-                    height: 30,
-                    child: MaterialButton(
-                      onPressed: () {},
-                      child: const Text(
-                        "+",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      color: defaultColor,
-                    ),
-                  ),
+                  child:
+                  addOrDelete(context, model)
+
                 ),
               ],
             ),

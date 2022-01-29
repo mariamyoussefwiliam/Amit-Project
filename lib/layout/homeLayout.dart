@@ -1,3 +1,4 @@
+import 'package:amit_project/shared/component/component.dart';
 import 'package:amit_project/shared/component/constant.dart';
 import 'package:amit_project/shared/cubit/cubit.dart';
 import 'package:amit_project/shared/cubit/states.dart';
@@ -12,10 +13,14 @@ class HomeLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeStates>(
         listener: (context, state) {
-          if(state is AddCartItemState|| state is RemoveCartItemState)
+          if(state is AddCartItemState)
             {
-             
+              showMessage(msg: "Item Added Successfully",color: Colors.green);
             }
+          if(state is RemoveCartItemState)
+          {
+            showMessage(msg: "Item Removed Successfully",color: Colors.red);
+          }
         },
         builder: (context, state) {
           var cubit = HomeCubit.get(context);
