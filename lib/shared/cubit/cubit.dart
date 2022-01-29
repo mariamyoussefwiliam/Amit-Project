@@ -102,7 +102,21 @@ class HomeCubit extends Cubit<HomeStates> {
     });
   }
 
-
-
+List<ProductModel> cartItems=[];
+  Map<int,bool> cartItem={};
+  void addCartItem(ProductModel product)
+  {
+    cartItems.add(product);
+    cartItem.addAll({product.id!:true});
+    print(cartItems.length);
+    emit(AddCartItemState());
+  }
+  void deleteCartItem(int index,int productId)
+  {
+    cartItems.removeAt(index);
+    cartItem.addAll({productId:false});
+    print(cartItems.length);
+    emit(RemoveCartItemState());
+  }
 }
 

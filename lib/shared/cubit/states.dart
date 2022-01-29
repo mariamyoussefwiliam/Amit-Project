@@ -66,3 +66,6 @@ class GetCategoryProductsDataErrorState extends HomeStates {
 
   GetCategoryProductsDataErrorState(this.error);
 }
+
+class AddCartItemState extends HomeStates {}
+class RemoveCartItemState extends HomeStates {}

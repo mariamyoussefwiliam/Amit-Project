@@ -1,6 +1,7 @@
 import 'package:amit_project/models/product%20model.dart';
 import 'package:amit_project/shared/component/component.dart';
 import 'package:amit_project/shared/cubit/cubit.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -19,23 +20,28 @@ class HomeScreen extends StatelessWidget {
       height = 1.25;
     }
 
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: SingleChildScrollView(
         child: Column(
           children: [
          const    SizedBox(height: 15,),
-            GridView.count(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              crossAxisSpacing: 8,
-              mainAxisSpacing: 8,
-              crossAxisCount: 2,
-              childAspectRatio: 1 / height,
-              children: List.generate(
-                productModel!.products.length,
-                (index) => productBuilder(context,index,productModel.products[index]),
+            ConditionalBuilder(
+              condition: productModel!=null,
+              builder:(context)=> GridView.count(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                crossAxisSpacing: 8,
+                mainAxisSpacing: 8,
+                crossAxisCount: 2,
+                childAspectRatio: 1 / height,
+                children: List.generate(
+                  productModel!.products.length,
+                  (index) => productBuilder(context,index,productModel.products[index]),
+                ),
               ),
+              fallback: (context)=>const Center(child: CircularProgressIndicator()),
             ),
             const    SizedBox(height: 15,),
           ],

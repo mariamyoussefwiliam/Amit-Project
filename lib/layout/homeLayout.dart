@@ -11,7 +11,12 @@ class HomeLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeStates>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if(state is AddCartItemState|| state is RemoveCartItemState)
+            {
+             
+            }
+        },
         builder: (context, state) {
           var cubit = HomeCubit.get(context);
 

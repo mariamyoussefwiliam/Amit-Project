@@ -1,4 +1,5 @@
 import 'package:amit_project/shared/component/constant.dart';
+import 'package:amit_project/shared/component/observer.dart';
 import 'package:amit_project/shared/cubit/cubit.dart';
 import 'package:amit_project/shared/cubit/states.dart';
 import 'package:amit_project/shared/network/remote/dio-helper.dart';
@@ -7,9 +8,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'layout/homeLayout.dart';
 
-void main() {
+Future<void> main() async{
+  WidgetsFlutterBinding.ensureInitialized();
   DioHelper.init();
-  runApp(const MyApp());
+
+  BlocOverrides.runZoned(
+        () {
+          runApp(const MyApp());
+    },
+    blocObserver: MyBlocObserver());
+
 }
 
 class MyApp extends StatelessWidget {
@@ -53,9 +61,10 @@ class MyApp extends StatelessWidget {
           ),
           home: AnimatedSplashScreen(
             splash: const Image(
-              image: AssetImage("assets/images/amit.jpg"),
+              image: AssetImage("assets/images/orange.jpg"),
               width: 120,
-              height: 10,
+              height: 25,
+              fit: BoxFit.cover,
             ),
             nextScreen: HomeLayout(),
             splashTransition: SplashTransition.rotationTransition,
