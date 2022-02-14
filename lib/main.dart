@@ -12,6 +12,8 @@ import 'layout/homeLayout.dart';
 import 'moduels/login and register/loginScreen.dart';
 
 Future<void> main() async {
+
+  print ("hello github");
   WidgetsFlutterBinding.ensureInitialized();
   DioHelper.init();
 
